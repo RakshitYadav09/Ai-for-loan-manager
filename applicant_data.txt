@@ -1,0 +1,82 @@
+1. Personal Information
+
+    Full Name: Amit Sharma
+    Date of Birth: 1992-07-15
+    Aadhaar Number: 1234-5678-9012
+    PAN Number: ABCDE1234F
+    Phone Number: +91 98765 43210
+    Email: amit.sharma@email.com
+    Address: 101, Rajendra Nagar, Mumbai, Maharashtra, 400001
+
+2. Identification Documents
+
+    Voter ID: MH/09/987/654321
+    Passport Number: P9876543
+    Issued State: Maharashtra
+    Expiry Date: 2032-10-05
+
+Extracted from Aadhaar Document (amit_sharma_aadhaar.pdf)
+
+    Father’s Name: Rakesh Sharma
+    Gender: Male
+    Permanent Address: 501, Andheri West, Mumbai, Maharashtra, 400058
+
+Extracted from PAN Card (amit_sharma_pan.pdf)
+
+    Date of Issue: 2011-08-19
+
+3. Employment Details
+
+    Employer Name: Tata Consultancy Services (TCS)
+    Job Title: Senior Software Developer
+    Employment Type: Full-time
+    Annual Salary: Rs18,00,000
+    Work Experience: 8 years
+    Employer Contact: hr@tcs.com, +91 22 6789 1234
+
+Extracted from Employment Letter (amit_sharma_employment_letter.pdf)
+
+    Employee ID: TCS56789
+    Date of Joining: 2016-05-10
+    Official Work Location: TCS Campus, Mumbai
+
+Extracted from Salary Slips (amit_sharma_salary_slips.pdf)
+
+    Basic Salary: Rs75,000
+    HRA: Rs30,000
+    PF Contribution: Rs8,500
+    Net Monthly Salary: Rs1,50,000
+
+4. Financial Details
+
+    Bank Name: ICICI Bank
+    Account Number: 345678901234
+    Account Type: Savings
+    Credit Score (CIBIL): 810
+    Monthly Income: Rs1,50,000
+    Monthly Expenses: Rs50,000
+
+Extracted from Bank Statement (amit_sharma_bank_statement.pdf)
+
+    Account Opening Date: 2014-06-20
+    Last 3 Months’ Average Balance: Rs4,00,000
+    Recent Transactions:
+        March 10, 2025: Salary Credit Rs1,50,000
+        March 12, 2025: Rent Payment Rs35,000
+        March 15, 2025: Credit Card Bill Rs25,000
+
+5. Car Loan Request Details
+
+    Loan Amount: Rs10,00,000
+    Loan Purpose: Purchase of a New Car
+    Loan Term: 5 years
+    Interest Rate: 9.2%
+    Down Payment: Rs2,00,000
+
+Extracted from Vehicle Quotation (amit_sharma_car_quotation.pdf)
+
+    Car Model: Hyundai Creta SX
+    Ex-Showroom Price: Rs12,00,000
+    On-Road Price: Rs14,00,000
+    Dealer Name: Hyundai Motors, Mumbai
+    Dealer Contact: +91 22 5678 9012
