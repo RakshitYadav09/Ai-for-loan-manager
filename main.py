@@ -1,7 +1,8 @@
 # main.py
 import os
 from dotenv import load_dotenv
-from voice_interaction import VoiceBasedChatbot
+# from voice_interaction import VoiceBasedChatbot
+from conv_mng import TextBasedConversationManager
 
 def main():
     # Load environment variables
@@ -10,7 +11,7 @@ def main():
     print("Starting AI Loan Manager...")
     
     # Create chatbot
-    chatbot = VoiceBasedChatbot()
+    chatbot = TextBasedConversationManager()
     
     # Start conversation
     try:

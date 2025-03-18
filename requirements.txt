@@ -109,7 +109,6 @@ itsdangerous==2.2.0
 jedi==0.19.1
 Jinja2==3.1.4
 jinja2-humanize-extension==0.4.0
-jira==3.8.0
 jiter==0.5.0
 jmespath==1.0.1
 joblib==1.4.2
@@ -132,8 +131,6 @@ Markdown==3.6
 markdown-it-py==3.0.0
 MarkupSafe==2.1.5
 marvin==2.3.7
-matplotlib==3.9.2
-matplotlib-inline==0.1.7
 mdurl==0.1.2
 mixpanel==4.10.1
 motor==3.4.0
@@ -212,7 +209,6 @@ redis==5.0.3
 redshift-connector==2.0.918
 referencing==0.35.1
 regex==2023.5.5
-reportlab==4.1.0
 requests==2.31.0
 requests-oauthlib==2.0.0
 requests-toolbelt==1.0.0
