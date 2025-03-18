@@ -15,7 +15,7 @@ class VoiceBasedChatbot:
         
         # Initialize text-to-speech engine
         self.tts_engine = pyttsx3.init()
-        self.tts_engine.setProperty('rate', 150)  # Slowed down for better clarity
+        self.tts_engine.setProperty('rate', 450)  # Slowed down for better clarity
         self.tts_engine.setProperty('volume', 0.9)
         voices = self.tts_engine.getProperty('voices')
         self.tts_engine.setProperty('voice', voices[0].id)

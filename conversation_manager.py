@@ -4,6 +4,9 @@ from gemini_integration import GeminiAI
 from loan_eligibility import LoanEligibilityEngine
 import json
 from datetime import datetime
+import sys
+import time
+import websocket
 
 class DynamicConversationManager:
     def __init__(self):
@@ -277,3 +280,21 @@ class DynamicConversationManager:
                 self.provide_final_assessment()
 
         self.save_json_report()  # Save the report at the end of the conversation
+try:
+    ws = websocket.WebSocket()
+    ws.connect("ws://localhost:5001")
+except Exception as e:
+    print("WebSocket connection failed:", e)
+    sys.exit(1)
+
+def send_message(msg):
+    """Send message to WebSocket and terminal."""
+    ws.send(json.dumps({"message": msg}))
+    print(msg)  # Keep normal terminal output
+
+# Example chatbot output loop
+for i in range(5):
+    send_message(f"Chatbot Message {i + 1}")
+    time.sleep(2)
+
+ws.close()

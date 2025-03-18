@@ -1,6 +1,7 @@
 import json
 import os
 from loan_eligibility import LoanEligibilityEngine
+import requests
 
 class LoanReportGenerator:
     def __init__(self):
@@ -359,25 +360,75 @@ class LoanReportGenerator:
         print("\n")
 
 
+    def send_report_to_api(self, applicant_data_file):
+        """Send the applicant data file path to the API to generate a report"""
+        try:
+            api_url = "http://localhost:5000/api/generate_report"
+            data = {
+                "applicant_data_file": applicant_data_file
+            }
+            headers = {"Content-Type": "application/json"}
+            
+            print(f"Sending request to {api_url} with data: {data}")
+            response = requests.post(api_url, json=data, headers=headers)
+            
+            if response.status_code == 200:
+                print(f"Report successfully generated via API. Status code: {response.status_code}")
+                print("Response content:")
+                print(json.dumps(response.json(), indent=2))
+                return response.json()
+            else:
+                print(f"Error generating report via API. Status code: {response.status_code}")
+                print("Response content:")
+                print(response.text)
+                return None
+        except Exception as e:
+            print(f"Exception when calling API: {e}")
+            return None
+
+
+# Modify the if __name__ == "__main__" block
 if __name__ == "__main__":
     # Usage example
     try:
         report_generator = LoanReportGenerator()
         
-        # Generate report from the file
-        report = report_generator.generate_report("applicant_data_structured.json")
+        # Path to applicant data file
+        applicant_data_file = "applicant_data_structured.json"
         
-        # Print the report to terminal
-        report_generator.print_report(report)
+        # Check if the server is running first
+        print("Checking if server is running...")
+        try:
+            server_check = requests.get("http://localhost:5000/api/report")
+            print("Server is running. Proceeding to send request to API.")
+        except requests.exceptions.ConnectionError:
+            print("Could not connect to the server. Make sure it's running at http://localhost:5000")
+            print("Falling back to local report generation...")
+            
+            # Generate report locally
+            report = report_generator.generate_report(applicant_data_file)
+            
+            # Print the report to terminal
+            report_generator.print_report(report)
+            
+            # Save the report to a JSON file
+            output_file = "loan_eligibility_report.json"
+            with open(output_file, "w") as f:
+                json.dump(report, f, indent=2)
+                print(f"Report saved to {output_file}")
+            
+            exit(1)
         
-        # Save the report to a JSON file
-        output_file = "loan_eligibility_report.json"
-        with open(output_file, "w") as f:
-            json.dump(report, f, indent=2)
-            print(f"Report saved to {output_file}")
+        # Send request to the API
+        print("\nSending request to API to generate report...")
+        api_report = report_generator.send_report_to_api(applicant_data_file)
+        
+        if api_report:
+            print("\nReport successfully generated via API")
+        else:
+            print("\nFailed to generate report via API")
             
     except Exception as e:
-        print(f"Error generating report: {e}")
-        # Print the full stack trace for debugging
+        print(f"Error: {e}")
         import traceback
         traceback.print_exc()

@@ -1,7 +1,7 @@
 {
   "report_date": "2025-03-17",
   "applicant": {
-    "name": "Unknown",
+    "name": "Amit Sharma",
     "date_of_birth": "1992-07-15",
     "gender": "Male"
   },
@@ -15,16 +15,16 @@
   "financial_overview": {
     "monthly_income": "Rs1,50,000",
     "monthly_expenses": "Rs50,000",
-    "credit_score": 810
+    "credit_score": 620
   },
   "eligibility_assessment": {
-    "overall_status": "APPROVED",
+    "overall_status": "NEEDS_MORE_INFO",
     "key_factors": [
       {
         "factor_name": "Credit Score",
-        "value": 810,
+        "value": 620,
         "threshold": 700,
-        "status": "PASS",
+        "status": "FAIL",
         "description": "Credit score is a measure of creditworthiness based on credit history."
       },
       {
@@ -50,18 +50,24 @@
       },
       {
         "factor_name": "Loan-to-Value Ratio",
-        "value": "0.50",
+        "value": "1.00",
         "threshold": "0.8",
-        "status": "PASS",
+        "status": "FAIL",
         "description": "The ratio of loan amount to asset value should be below the threshold."
       }
     ],
-    "detailed_factors": [],
-    "recommendations": []
+    "detailed_factors": [
+      "Credit score (620) below minimum requirement (700)",
+      "Loan amount too high relative to property value"
+    ],
+    "recommendations": [
+      "Work on improving your credit score",
+      "Consider a smaller loan amount or providing additional collateral"
+    ]
   },
   "conclusion": {
-    "is_approved": true,
-    "approval_type": "APPROVED",
-    "next_steps": "Please proceed with document verification"
+    "is_approved": false,
+    "approval_type": "NEEDS_MORE_INFO",
+    "next_steps": "Please address the issues mentioned in the recommendations"
   }
 }
