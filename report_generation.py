@@ -195,7 +195,7 @@ class LoanReportGenerator:
             print(f"Error checking eligibility: {e}")
             # Provide default eligibility results if check fails
             eligibility_results = {
-                "status": "NEEDS_MORE_INFO",
+                "status": "REJECTED",
                 "factors": ["Error processing eligibility"],
                 "recommendations": ["Please review your application data"]
             }
@@ -315,8 +315,6 @@ class LoanReportGenerator:
             status_color = "\033[92m"  # Green
         elif status == "CONDITIONALLY_APPROVED":
             status_color = "\033[93m"  # Yellow
-        elif status == "NEEDS_MORE_INFO":
-            status_color = "\033[94m"  # Blue
         else:  # REJECTED
             status_color = "\033[91m"  # Red
             

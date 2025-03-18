@@ -1,7 +1,7 @@
 {
   "report_date": "2025-03-17",
   "applicant": {
-    "name": "Amit Sharma",
+    "name": "Unknown",
     "date_of_birth": "1992-07-15",
     "gender": "Male"
   },
@@ -18,7 +18,7 @@
     "credit_score": 620
   },
   "eligibility_assessment": {
-    "overall_status": "NEEDS_MORE_INFO",
+    "overall_status": "REJECTED_WITH_CONDITIONS",
     "key_factors": [
       {
         "factor_name": "Credit Score",
@@ -67,7 +67,7 @@
   },
   "conclusion": {
     "is_approved": false,
-    "approval_type": "NEEDS_MORE_INFO",
+    "approval_type": "REJECTED_WITH_CONDITIONS",
     "next_steps": "Please address the issues mentioned in the recommendations"
   }
 }
