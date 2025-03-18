@@ -47,6 +47,7 @@ def generate_report():
             return jsonify({"error": "Failed to generate report"}), 500
     except Exception as e:
         return jsonify({"error": f"Error generating report: {str(e)}"}), 500
+    
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=10000)
