@@ -1,7 +1,10 @@
 from flask import Flask, jsonify, request
 import os
 import fitz 
+import easyocr
+import cv2
 from report_generation import LoanReportGenerator
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -101,6 +104,32 @@ def process_pdf():
 
     except Exception as e:
         return jsonify({"error": f"Error processing PDF: {str(e)}"}), 500
+
+UPLOAD_FOLDER = "uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Initialize EasyOCR reader
+reader = easyocr.Reader(['en'])
+
+@app.route('/ocr', methods=['POST'])
+def ocr():
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image uploaded'}), 400
+    
+    file = request.files['image']
+    filename = secure_filename(file.filename)
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(filepath)
+    
+    # Read image using OpenCV
+    image = cv2.imread(filepath)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+    
+    # Perform OCR using EasyOCR
+    result = reader.readtext(gray, detail=0)
+    
+    return jsonify({'text': " ".join(result)})
 
 
 
