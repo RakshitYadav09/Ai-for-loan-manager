@@ -43,7 +43,7 @@ class LoanEligibilityEngine:
             property_value = int(applicant_data.get('loan_request', {}).get('property_value', 0))
         except (ValueError, TypeError):
             # Handle conversion errors
-            results['status'] = "NEEDS_MORE_INFO"
+            results['status'] = "REJECTED"
             results['factors'].append("Missing or invalid financial information")
             return results
         
@@ -88,7 +88,7 @@ class LoanEligibilityEngine:
         elif len(results['factors']) <= 1:
             results['status'] = "CONDITIONALLY_APPROVED"
         elif len(results['factors']) <= 2:
-            results['status'] = "NEEDS_MORE_INFO"
+            results['status'] = "REJECTED_WITH_CONDITIONS"
         else:
             results['status'] = "REJECTED"
         

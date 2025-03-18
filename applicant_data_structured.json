@@ -1,6 +1,5 @@
 {
   "personal_information": {
-    "name": "Amit Sharma",
     "date_of_birth": "1992-07-15",
     "gender": "Male",
     "father_name": "Rakesh Sharma",
@@ -36,7 +35,7 @@
     "basic_salary": "Rs75,000",
     "hra": "Rs30,000",
     "pf_contribution": "Rs8,500",
-    "net_monthly_salary": "Rs1,50,000"
+    "net_monthly_salary": "150000"
   },
   "financial": {
     "bank_name": "ICICI Bank",
@@ -47,23 +46,7 @@
     "monthly_expenses": "Rs50,000",
     "account_opening_date": "2014-06-20",
     "average_balance_3m": "Rs4,00,000",
-    "recent_transactions": [
-      {
-        "date": "March 10, 2025",
-        "description": "Salary Credit",
-        "amount": "Rs1,50,000"
-      },
-      {
-        "date": "March 12, 2025",
-        "description": "Rent Payment",
-        "amount": "Rs35,000"
-      },
-      {
-        "date": "March 15, 2025",
-        "description": "Credit Card Bill",
-        "amount": "Rs25,000"
-      }
-    ]
+    "recent_transactions": []
   },
   "loan_request": {
     "loan_amount": "Rs10,00,000",
