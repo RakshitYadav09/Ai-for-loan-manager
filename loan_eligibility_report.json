@@ -1,0 +1,67 @@
+{
+  "report_date": "2025-03-17",
+  "applicant": {
+    "name": "Unknown",
+    "date_of_birth": "1992-07-15",
+    "gender": "Male"
+  },
+  "loan_details": {
+    "loan_amount": "Rs10,00,000",
+    "loan_purpose": "Purchase of a New Car",
+    "loan_term": "5 years",
+    "interest_rate": "9.2%",
+    "estimated_emi": "\u20b920,855.56"
+  },
+  "financial_overview": {
+    "monthly_income": "Rs1,50,000",
+    "monthly_expenses": "Rs50,000",
+    "credit_score": 810
+  },
+  "eligibility_assessment": {
+    "overall_status": "APPROVED",
+    "key_factors": [
+      {
+        "factor_name": "Credit Score",
+        "value": 810,
+        "threshold": 700,
+        "status": "PASS",
+        "description": "Credit score is a measure of creditworthiness based on credit history."
+      },
+      {
+        "factor_name": "Income Level",
+        "value": "\u20b9150,000.00",
+        "threshold": "\u20b950,000.00",
+        "status": "PASS",
+        "description": "Monthly income should be sufficient to cover loan payments."
+      },
+      {
+        "factor_name": "Debt-to-Income Ratio",
+        "value": "0.33",
+        "threshold": "0.5",
+        "status": "PASS",
+        "description": "The ratio of monthly expenses to income should be below the threshold."
+      },
+      {
+        "factor_name": "Employment Stability",
+        "value": "8 years",
+        "threshold": "2 years",
+        "status": "PASS",
+        "description": "Stable employment history is required for loan approval."
+      },
+      {
+        "factor_name": "Loan-to-Value Ratio",
+        "value": "0.50",
+        "threshold": "0.8",
+        "status": "PASS",
+        "description": "The ratio of loan amount to asset value should be below the threshold."
+      }
+    ],
+    "detailed_factors": [],
+    "recommendations": []
+  },
+  "conclusion": {
+    "is_approved": true,
+    "approval_type": "APPROVED",
+    "next_steps": "Please proceed with document verification"
+  }
+}

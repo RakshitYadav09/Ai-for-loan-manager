@@ -1,5 +1,5 @@
 # conversation_manager.py
-from voice_interaction import EnhancedVoiceInteraction
+from voice_interaction import VoiceBasedChatbot
 from gemini_integration import GeminiAI
 from loan_eligibility import LoanEligibilityEngine
 import json
@@ -7,7 +7,7 @@ from datetime import datetime
 
 class DynamicConversationManager:
     def __init__(self):
-        self.voice = EnhancedVoiceInteraction()
+        self.voice = VoiceBasedChatbot()
         self.ai = GeminiAI()
         self.eligibility_engine = LoanEligibilityEngine()
         self.applicant_data = self.load_applicant_data()

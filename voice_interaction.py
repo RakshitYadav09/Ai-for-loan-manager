@@ -3,6 +3,8 @@ import pyttsx3
 import json
 import os
 import speech_recognition as sr
+import time
+import winsound  # For Windows sound
 from gemini_integration import GeminiAI
 from loan_eligibility import LoanEligibilityEngine
 from dotenv import load_dotenv
@@ -13,7 +15,7 @@ class VoiceBasedChatbot:
         
         # Initialize text-to-speech engine
         self.tts_engine = pyttsx3.init()
-        self.tts_engine.setProperty('rate', 400)
+        self.tts_engine.setProperty('rate', 150)  # Slowed down for better clarity
         self.tts_engine.setProperty('volume', 0.9)
         voices = self.tts_engine.getProperty('voices')
         self.tts_engine.setProperty('voice', voices[0].id)
@@ -30,6 +32,9 @@ class VoiceBasedChatbot:
 
         # Conversation history
         self.conversation_history = []
+        
+        # Status indicators
+        self.listening_sound_enabled = True
 
     def speak(self, text):
         """Convert text to speech and play it"""
@@ -37,27 +42,66 @@ class VoiceBasedChatbot:
         self.tts_engine.say(text)
         self.tts_engine.runAndWait()
 
+    def play_listening_sound(self):
+        """Play a sound to indicate listening has started"""
+        try:
+            # Play a beep sound (frequency, duration)
+            # First beep: higher pitch
+            winsound.Beep(1000, 150)
+            time.sleep(0.05)
+            # Second beep: higher pitch
+            winsound.Beep(1200, 150)
+            
+            # Say "Listening" with TTS
+            self.tts_engine.say("Listening")
+            self.tts_engine.runAndWait()
+            
+        except Exception as e:
+            print(f"Could not play listening sound: {e}")
+
     def listen(self):
         """Listen to user's voice input and convert to text"""
         with sr.Microphone() as source:
+            # Adjust for ambient noise
             print("Adjusting for ambient noise, please wait...")
             self.recognizer.adjust_for_ambient_noise(source, duration=1)
-            print("Listening now...")
+            
+            # Play sound and visual indicator that we're listening
+            print("\n=== LISTENING NOW ===")
+            
+            # Play the listening sound
+            if self.listening_sound_enabled:
+                self.play_listening_sound()
+            
             try:
+                # Listen for audio
                 audio = self.recognizer.listen(source, timeout=10, phrase_time_limit=30)
+                
+                # Play a sound to indicate listening has stopped
+                try:
+                    winsound.Beep(800, 150)  # Lower pitch for end
+                except:
+                    pass
+                    
                 print("Processing audio...")
                 text = self.recognizer.recognize_google(audio)
                 print(f"You said: {text}")
                 return text
+                
             except sr.WaitTimeoutError:
                 print("Listening timed out while waiting for speech.")
+                self.speak("I didn't hear anything. Let me ask again.")
                 return None
             except sr.UnknownValueError:
                 print("Could not understand audio.")
+                self.speak("I couldn't understand what you said. Could you please repeat?")
                 return None
             except sr.RequestError as e:
                 print(f"Could not request results; {e}")
+                self.speak("I'm having trouble connecting to the speech recognition service.")
                 return None
+            finally:
+                print("=== LISTENING ENDED ===\n")
 
     def load_applicant_data(self, file_path='applicant_data_structured.json'):
         """Load applicant data from JSON file"""
@@ -97,7 +141,7 @@ class VoiceBasedChatbot:
 
     def start_conversation(self):
         """Start the voice-based conversation"""
-        greeting = "Hello! I'm your AI loan assistant. Let's start your loan application using voice interaction."
+        greeting = "Hello! I'm your AI loan assistant. Let's start your loan application using voice interaction. I'll make a sound and say 'Listening' when it's your turn to speak."
         self.speak(greeting)
 
         conversation_active = True
@@ -118,7 +162,7 @@ class VoiceBasedChatbot:
             user_input = self.listen()
             
             if not user_input:
-                self.speak("I didn't catch that clearly. Could you please repeat?")
+                # Already handled in listen() method with appropriate messages
                 current_turn -= 1  # Retry this turn again without incrementing count
                 continue
 
@@ -134,6 +178,8 @@ class VoiceBasedChatbot:
                 if response_data.get("needs_clarification", False):
                     clarification_question = response_data.get("clarification_question", "Could you please clarify?")
                     self.speak(clarification_question)
+                    
+                    # Get clarification with audio cue
                     clarification_response = self.listen()
 
                     if clarification_response:
@@ -155,6 +201,8 @@ class VoiceBasedChatbot:
 
                 if loan_info.get("loan_amount") and financial_info.get("monthly_income"):
                     self.speak("I have enough information to assess your loan eligibility now. Would you like to hear it?")
+                    
+                    # Listen for response with audio cue
                     eligibility_response = self.listen()
 
                     if eligibility_response and any(word in eligibility_response.lower() for word in ["yes", "sure", "okay"]):
@@ -166,12 +214,14 @@ class VoiceBasedChatbot:
 
                         # Ask to continue or end session
                         self.speak("Would you like to continue or end our session?")
+                        
+                        # Listen for response with audio cue
                         continue_response = self.listen()
 
                         if continue_response and any(word in continue_response.lower() for word in ["end", "stop", "finish"]):
                             conversation_active = False
 
-            # Save data periodically every 5 turns
+            # Save data periodically every 2 turns
             if current_turn % 2 == 0:
                 self.save_applicant_data()
 

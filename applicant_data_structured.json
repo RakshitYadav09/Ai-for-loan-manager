@@ -17,8 +17,10 @@
   "contact": {
     "phone": "+91 98765 43210",
     "email": "amit.sharma@email.com",
-    "address": "101, Rajendra Nagar, Mumbai, Maharashtra, 400001",
-    "permanent_address": "501, Andheri West, Mumbai, Maharashtra, 400058"
+    "address": {
+      "permanent": "501, Andheri West, Mumbai, Maharashtra, 400058",
+      "current": "101, Rajendra Nagar, Mumbai, Maharashtra, 400001"
+    }
   },
   "employment": {
     "employer_name": "Tata Consultancy Services (TCS)",
@@ -32,7 +34,7 @@
     },
     "employee_id": "TCS56789",
     "date_of_joining": "2016-05-10",
-    "official_work_location": "TCS Campus, Mumbai",
+    "work_location": "TCS Campus, Mumbai",
     "basic_salary": "Rs75,000",
     "hra": "Rs30,000",
     "pf_contribution": "Rs8,500",
@@ -42,6 +44,7 @@
     "bank_name": "ICICI Bank",
     "account_number": "345678901234",
     "account_type": "Savings",
+    "credit_score": 810,
     "monthly_income": "Rs1,50,000",
     "monthly_expenses": "Rs50,000",
     "account_opening_date": "2014-06-20",
@@ -62,8 +65,7 @@
         "description": "Credit Card Bill",
         "amount": "Rs25,000"
       }
-    ],
-    "credit_score": "200"
+    ]
   },
   "loan_request": {
     "loan_amount": "Rs10,00,000",
@@ -75,10 +77,6 @@
     "ex_showroom_price": "Rs12,00,000",
     "on_road_price": "Rs14,00,000",
     "dealer_name": "Hyundai Motors, Mumbai",
-    "dealer_contact": "+91 22 5678 9012",
-    "property_value": "Rs30,00,000"
-  },
-  "family": {
-    "father_name": "Rakesh Sharma"
+    "dealer_contact": "+91 22 5678 9012"
   }
 }
