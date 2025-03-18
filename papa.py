@@ -86,6 +86,7 @@ def main():
     print("="*80)
     print("\nAll modules have been executed. Check the generated files for complete results.")
     print("Thanks for using LoanBuddy!")
+    print("\n" + "="*80)
 
 if __name__ == "__main__":
     main()
