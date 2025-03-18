@@ -1,8 +1,7 @@
 from flask import Flask, jsonify, request
 import os
-import fitz 
-import easyocr
-import cv2
+# import fitz 
+# import cv2
 from report_generation import LoanReportGenerator
 from werkzeug.utils import secure_filename
 
@@ -53,83 +52,83 @@ def generate_report():
         return jsonify({"error": f"Error generating report: {str(e)}"}), 500
     
 
-def extract_text_from_pdf(pdf_path):
-    """
-    Extract text from a PDF file using PyMuPDF.
-    """
-    extracted_text = ""
-    try:
-        with fitz.open(pdf_path) as pdf:
-            for page in pdf:
-                print(page)
-                extracted_text += page.get_text()
-    except Exception as e:
-        raise Exception(f"Error processing PDF: {str(e)}")
-    return extracted_text
+# def extract_text_from_pdf(pdf_path):
+#     """
+#     Extract text from a PDF file using PyMuPDF.
+#     """
+#     extracted_text = ""
+#     try:
+#         with fitz.open(pdf_path) as pdf:
+#             for page in pdf:
+#                 print(page)
+#                 extracted_text += page.get_text()
+#     except Exception as e:
+#         raise Exception(f"Error processing PDF: {str(e)}")
+#     return extracted_text
 
-@app.route('/api/process_pdf', methods=['POST'])
-def process_pdf():
-    """
-    Endpoint to process text from an uploaded PDF file.
-    """
-    try:
-        # Check if a file is included in the request
-        if 'file' not in request.files:
-            return jsonify({"error": "No file provided"}), 400
+# @app.route('/api/process_pdf', methods=['POST'])
+# def process_pdf():
+#     """
+#     Endpoint to process text from an uploaded PDF file.
+#     """
+#     try:
+#         # Check if a file is included in the request
+#         if 'file' not in request.files:
+#             return jsonify({"error": "No file provided"}), 400
 
-        file = request.files['file']
+#         file = request.files['file']
 
-        # Check if the file has a valid name
-        if file.filename == '':
-            return jsonify({"error": "No file selected"}), 400
+#         # Check if the file has a valid name
+#         if file.filename == '':
+#             return jsonify({"error": "No file selected"}), 400
 
-        # Check if the file is a PDF
-        if not file.filename.lower().endswith('.pdf'):
-            return jsonify({"error": "Only PDF files are supported"}), 400
+#         # Check if the file is a PDF
+#         if not file.filename.lower().endswith('.pdf'):
+#             return jsonify({"error": "Only PDF files are supported"}), 400
 
-        # Save the uploaded file temporarily
-        temp_file_path = os.path.join("temp", file.filename)
-        print(file.filename)
-        os.makedirs("temp", exist_ok=True)
-        file.save(temp_file_path)
+#         # Save the uploaded file temporarily
+#         temp_file_path = os.path.join("temp", file.filename)
+#         print(file.filename)
+#         os.makedirs("temp", exist_ok=True)
+#         file.save(temp_file_path)
 
-        # Extract text from the PDF
-        extracted_text = extract_text_from_pdf(temp_file_path)
+#         # Extract text from the PDF
+#         extracted_text = extract_text_from_pdf(temp_file_path)
 
-        # Clean up the temporary file
-        os.remove(temp_file_path)
+#         # Clean up the temporary file
+#         os.remove(temp_file_path)
 
-        # Return the extracted text
-        return jsonify({"extracted_text": extracted_text})
+#         # Return the extracted text
+#         return jsonify({"extracted_text": extracted_text})
 
-    except Exception as e:
-        return jsonify({"error": f"Error processing PDF: {str(e)}"}), 500
+#     except Exception as e:
+#         return jsonify({"error": f"Error processing PDF: {str(e)}"}), 500
 
-UPLOAD_FOLDER = "uploads"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# UPLOAD_FOLDER = "uploads"
+# os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Initialize EasyOCR reader
-reader = easyocr.Reader(['en'])
+# # Initialize EasyOCR reader
+# reader = easyocr.Reader(['en'])
 
-@app.route('/ocr', methods=['POST'])
-def ocr():
-    if 'image' not in request.files:
-        return jsonify({'error': 'No image uploaded'}), 400
+# @app.route('/ocr', methods=['POST'])
+# def ocr():
+#     if 'image' not in request.files:
+#         return jsonify({'error': 'No image uploaded'}), 400
     
-    file = request.files['image']
-    filename = secure_filename(file.filename)
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    file.save(filepath)
+#     file = request.files['image']
+#     filename = secure_filename(file.filename)
+#     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+#     file.save(filepath)
     
-    # Read image using OpenCV
-    image = cv2.imread(filepath)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+#     # Read image using OpenCV
+#     image = cv2.imread(filepath)
+#     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
     
-    # Perform OCR using EasyOCR
-    result = reader.readtext(gray, detail=0)
+#     # Perform OCR using EasyOCR
+#     result = reader.readtext(gray, detail=0)
     
-    return jsonify({'text': " ".join(result)})
+#     return jsonify({'text': " ".join(result)})
 
 
 
