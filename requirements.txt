@@ -281,4 +281,3 @@ wrapt==1.16.0
 xlsx2csv==0.8.3
 easyocr==1.4.1
 pytesseract==0.3.9
-cv2
