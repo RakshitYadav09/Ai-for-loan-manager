@@ -24,12 +24,11 @@ class DocumentParser:
         """Parse unstructured document text into structured JSON format"""
         prompt = f"""
         You are a document parsing assistant. Convert the following document text into a structured JSON object.
-        The text appears to be from multiple identification documents like ID cards, educational credentials, etc.
+        The text appears to be from multiple identification documents like ID cards,financial credentials, etc.
         
         Extract all relevant information and organize it into appropriate categories like:
         - personal_information (name, date_of_birth, gender, etc.)
         - identification (IDs like PAN card, Aadhar number, etc.)
-        - education (degrees, institutions, registration numbers)
         - contact (phone, email, addresses)
         - family (parent names, etc.)
         

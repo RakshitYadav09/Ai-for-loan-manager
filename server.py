@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 import os
+import fitz 
 from report_generation import LoanReportGenerator
 
 app = Flask(__name__)
@@ -48,6 +49,60 @@ def generate_report():
     except Exception as e:
         return jsonify({"error": f"Error generating report: {str(e)}"}), 500
     
+
+def extract_text_from_pdf(pdf_path):
+    """
+    Extract text from a PDF file using PyMuPDF.
+    """
+    extracted_text = ""
+    try:
+        with fitz.open(pdf_path) as pdf:
+            for page in pdf:
+                print(page)
+                extracted_text += page.get_text()
+    except Exception as e:
+        raise Exception(f"Error processing PDF: {str(e)}")
+    return extracted_text
+
+@app.route('/api/process_pdf', methods=['POST'])
+def process_pdf():
+    """
+    Endpoint to process text from an uploaded PDF file.
+    """
+    try:
+        # Check if a file is included in the request
+        if 'file' not in request.files:
+            return jsonify({"error": "No file provided"}), 400
+
+        file = request.files['file']
+
+        # Check if the file has a valid name
+        if file.filename == '':
+            return jsonify({"error": "No file selected"}), 400
+
+        # Check if the file is a PDF
+        if not file.filename.lower().endswith('.pdf'):
+            return jsonify({"error": "Only PDF files are supported"}), 400
+
+        # Save the uploaded file temporarily
+        temp_file_path = os.path.join("temp", file.filename)
+        print(file.filename)
+        os.makedirs("temp", exist_ok=True)
+        file.save(temp_file_path)
+
+        # Extract text from the PDF
+        extracted_text = extract_text_from_pdf(temp_file_path)
+
+        # Clean up the temporary file
+        os.remove(temp_file_path)
+
+        # Return the extracted text
+        return jsonify({"extracted_text": extracted_text})
+
+    except Exception as e:
+        return jsonify({"error": f"Error processing PDF: {str(e)}"}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=10000)
