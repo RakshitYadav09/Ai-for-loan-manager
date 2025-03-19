@@ -207,6 +207,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const report = await response.json();
             
             displayReport(report);
+
+            // Close the browser window
+            setTimeout(() => {
+                if (confirm("The report has been generated. Do you want to close this window?")) {
+                    window.location.href = "http://localhost:3000/status";
+                }
+            }, 1000);
             
         } catch (error) {
             console.error("Error generating report:", error);
